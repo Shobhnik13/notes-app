@@ -1,0 +1,1 @@
+This is a Todo App made using React JS,Tailwind Css and firebase,in this a user can add the tasks which we want to perform throughout the day which will be directly saved to the firebase cloud storage
