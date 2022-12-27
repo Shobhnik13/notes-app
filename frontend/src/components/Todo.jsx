@@ -8,8 +8,7 @@ const Todo = (props) => {
             <p className='todo-text'>{props.todo}</p>
         </div>
         <button className='trash-button'><FaRegTrashAlt /></button>
-  <p className='todos-count'>You have 2 Todos</p>
-    </li>
+     </li>
   )
 }
 
