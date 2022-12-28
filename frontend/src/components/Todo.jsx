@@ -4,14 +4,14 @@ const dummyclass={
     li:`flex justify-between bg-slate-200 p-3 my-2 rounded-sm`,
     liCompleted:`flex justify-between bg-slate-400 p-3 my-2 rounded-sm`
 }
-const Todo = (props) => {
+const Todo = ({todo,toggleCompleted,deleteTodo}) => {
   return (
-    <li className={props.todo.completed ?dummyclass.liCompleted :dummyclass.li}>
+    <li className={todo.completed ?dummyclass.liCompleted :dummyclass.li}>
         <div className="row flex">
-            <input type="checkbox" className='cursor-pointer' checked={props.todo.completed ? 'checked' :''}/>
-            {props.todo.completed ? <p className='todo-text ml-2 cursor-pointer line-through'>{props.todo.text}</p>:<p className='todo-text ml-2 cursor-pointer '>{props.todo.text}</p>}
+            <input onChange={()=>toggleCompleted(todo)} type="checkbox" className='cursor-pointer' checked={todo.completed ? 'checked' :''}/>
+            {todo.completed ? <p onClick={()=>toggleCompleted(todo)} className='todo-text ml-2 cursor-pointer line-through'>{todo.text}</p>:<p onClick={()=>toggleCompleted(todo)} className='todo-text ml-2 cursor-pointer '>{todo.text}</p>}
         </div>
-        <button className='trash-button flex cursor-pointer items-center'><FaRegTrashAlt /></button>
+        <button onClick={()=>deleteTodo(todo)} className='trash-button flex cursor-pointer items-center'><FaRegTrashAlt /></button>
      </li>
   )
 }

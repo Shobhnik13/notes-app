@@ -3,14 +3,11 @@ import './App.css'
 import { AiOutlinePlus } from 'react-icons/ai';
 import Todo from './components/Todo';
 import {db} from './firebase'
-import {query,collection, onSnapshot} from 'firebase/firestore'
+import {query,collection, onSnapshot, updateDoc, doc, deleteDoc} from 'firebase/firestore'
 function App() {
   //creating a new state for changing todos named todos
   const [todos,setTodos]=useState([])
-  //mapping state with compnents for passing the todo props in todo component
-  const todosArray=todos.map((item,index)=>{
-    return <Todo key={index} todo={item}/>
-  })
+  
   //CRUD
 //create todo
 //read todo from firebase
@@ -27,8 +24,15 @@ setTodos(todosArr)
 return ()=>unSubscibe
 },[])
 //update todo to firebase
+const toggleCompleted=async (Todo)=>{
+await updateDoc(doc(db,'todos',Todo.id),{
+  completed:!Todo.completed
+})
+}
 //delete todo
-
+const deleteTodo=async (dummyTodo)=>{
+  await deleteDoc(doc(db,'todos',dummyTodo.id))
+}
 
 
 
@@ -42,7 +46,9 @@ return ()=>unSubscibe
         <button className='plus-button border p-2 ml-2 bg-purple-500 text-slate-100'><AiOutlinePlus size={35} /></button>
       </form>
       <ul className='list'>
-        {todosArray}
+        {todos.map((item,index)=>{
+    return <Todo key={index} todo={item} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo} />
+  })}
       </ul>
       <p className='todos-count text-center p-1 font-semibold'>You have <span className='text-green-600 text-xl font-semibold'>2</span> Todos</p>
       </div>
