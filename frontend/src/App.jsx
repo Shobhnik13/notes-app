@@ -41,6 +41,7 @@ const addTodo=async (e)=>{
 e.preventDefault()
 if(inp===''){
   alert('Please enter a valid todo')
+  return
 }
 addDoc(collection(db,'todos'),{
   text:inp,
